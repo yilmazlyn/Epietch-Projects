@@ -1,0 +1,168 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Language" content="en"/>
+    <meta name="msapplication-TileColor" content="#2d89ef">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <link rel="icon" href="/admin/assets/images/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+          integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
+
+    <!-- Generated: 2018-04-16 09:29:05 +0200 -->
+    <title>Admin</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
+
+    <!-- Dashboard Core -->
+    <link href="../admin/assets/css/dashboard.css" rel="stylesheet"/>
+    <!-- c3.js Charts Plugin -->
+    <link href="../admin/assets/plugins/charts-c3/plugin.css" rel="stylesheet"/>
+    <!-- Google Maps Plugin -->
+    <link href="../admin/assets/plugins/maps-google/plugin.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/main.css">
+
+    <style>
+        body {
+            padding-top: 0 !important;
+        }
+
+        .nav-menu a {
+            color: #FFF !important;
+        }
+
+        #nav-menu-container {
+            display: flex;
+            align-items: center;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+
+    <div class="page">
+        <div class="page-main">
+            <div class="header py-4" style="background: #ed4638">
+                <div class="container">
+                    <div class="d-flex justify-content-between">
+                        <div id="logo">
+                            <a href="index.html"><img height="35px" src="../img/logo.png" alt="" title=""/></a>
+                        </div>
+                        <nav id="nav-menu-container">
+                            <ul class="nav-menu">
+                                <li class="menu-active"><a href="/home">Home</a></li>
+                                <li><a href="/films/favorite">Favorites</a></li>
+                                <li><a href="/films/lists">My list</a></li>
+
+                                <a href="/admin" class="login-panel"><i class="fa fa-user"></i> Admin Pannel</a>
+
+                                <a> <img id="logout"><a href="#" style="color: white;">logout</a> </a>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="header collapse d-lg-flex p-0" id="headerMenuCollapse">
+                <div class="container">
+                    <div class="row align-items-center">
+
+                        <div class="col-lg-3 ml-auto">
+                            <form class="input-icon my-3 my-lg-0">
+                                <input type="search" class="form-control header-search" placeholder="Search&hellip;"
+                                       tabindex="1">
+                                <div class="input-icon-addon">
+                                    <i class="fe fe-search"></i>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="my-3 my-md-5">
+                <div class="container">
+
+                    <div class="page-header">
+                        <h1 class="page-title">Edit list</h1>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-lg-6">
+                            <!--form class="card p-3 form-group" method="POST" action="">
+
+                                <div class="form-group">
+                                    <label class="form-label">List name</label>
+                                    <input type="text" class="form-control" name="name"
+                                           value="">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Description</label>
+                                    <textarea name="description" id="" cols="75" rows="5" value=""></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-primary form-control" value="Save">
+                                </div>
+                            </form-->
+                            {{ form_start(form, {'attr': {'class': 'card p-3 form-group'}}) }}
+                            {{ form_errors(form) }}
+                            <input type="hidden" name="_csrf_token"
+                                   value="{{ csrf_token('Succeed') }}"
+                            >
+                            <div class="form-group">
+                                {{ form_errors(form.name) }}
+                                {{ form_label(form.name,'List name', {'attr': {'class': 'form-label'}} ) }}
+                                {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_errors(form.description) }}
+                                {{ form_label(form.description,'Description', {'attr': {'class': 'form-label'}}) }}
+                                {{ form_widget(form.description, {'attr': {'class': 'form-control','cols':'75','rows':'5' }}) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.shared,'Public', {'attr': {'class': 'form-label'}}) }}
+                                {{ form_widget(form.shared) }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_row(form.save,{'attr': {'class': 'btn btn-primary form-control'}}) }}
+                            </div>
+
+                            <!-- ENd of the form-->
+                            {{ form_end(form) }}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="../admin/assets/js/require.min.js"></script>
+
+
+    <script src="../admin/assets/js/dashboard.js"></script>
+    <script src="../admin/assets/plugins/charts-c3/plugin.js"></script>
+    <script src="../admin/assets/plugins/maps-google/plugin.js"></script>
+    <script src="../admin/assets/plugins/input-mask/plugin.js"></script>
+
+{% endblock %}

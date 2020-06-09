@@ -1,0 +1,83 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/login.css">
+
+{% endblock %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+    {{ form_start(registrationForm, {'method': 'POST'}) }}
+    <!--Insert the form-->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 offset-md-4 form-wrapper auth">
+                <h1 class="text-center form-title" >Register</h1>
+                <form method="POST" id="contactForm">
+
+                    <div class="my-custom-class-for-errors">
+                        {{ form_errors(registrationForm) }}
+                    </div>
+
+                    <input type="hidden" name="_csrf_token"
+                           value="{{ csrf_token('Succeed') }}">
+
+                    <div class="form-group">
+                        {{ form_row(registrationForm._token, {'attr': {'class': 'form-control form-control-lg'}}) }}
+                        {{ form_label(registrationForm.username, 'User name', {'attr': {'class': 'form-control form-control-lg'}}) }}
+                        {{ form_widget(registrationForm.username, {'attr': {'class': 'form-control form-control-lg'}}) }}
+                        {{ form_errors(registrationForm.username) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_row(registrationForm._token, {'attr': {'class': 'form-control form-control-lg'}}) }}
+                        {{ form_label(registrationForm.email, 'Email', {'attr': {'class': 'form-control form-control-lg'}}) }}
+                        {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control form-control-lg'}}) }}
+                        {{ form_errors(registrationForm.email) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_row(registrationForm._token, {'attr': {'class': 'form-control form-control-lg'}}) }}
+                        {{ form_label(registrationForm.password.first,'Password', {'attr': {'class': 'form-control form-control-lg'}}) }}
+                        {{ form_widget(registrationForm.password.first, {'attr': {'class': 'form-control form-control-lg'}}) }}
+                        {{ form_errors(registrationForm.password.first) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_row(registrationForm._token, {'attr': {'class': 'form-control form-control-lg'}}) }}
+                        {{ form_label(registrationForm.password.second,'Password Confirmation', {'attr': {'class': 'form-control form-control-lg'}}) }}
+                        {{ form_widget(registrationForm.password.second, {'attr': {'class': 'form-control form-control-lg'}}) }}
+                        {{ form_errors(registrationForm.password.second) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_row(registrationForm._token, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                        {{ form_label(registrationForm.agreeTerms,'Agree with Terms', {'attr': {'class': 'form-control form-control-lg'}}) }}
+                        {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-label'}}) }}
+                        {{ form_errors(registrationForm.agreeTerms) }}
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-lg btn-block">Register</button>
+                    </div>
+
+                    <p>Have already an account? <a href="/login">Login</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End of the form-->
+    {{ form_rest(registrationForm) }}
+    {{ form_end(registrationForm) }}
+{% endblock %}
+
+
+{#
+{{ form_row(registrationForm.username, {'attr': {'class': 'form-control form-control-lg'}}) }}
+{{ form_row(registrationForm.email, {'attr': {'class': 'form-control form-control-lg'}}) }}
+{{ form_row(registrationForm.first, {'attr': {'class': 'form-control form-control-lg'}}) }}
+{{ form_row(registrationForm.passwordConfirmation, {'attr': {'class': 'form-control form-control-lg'}}) }}
+{{ form_row(registrationForm.agreeTerms, {'attr': {'class': 'form-control form-control-sm'}}) }}#}
